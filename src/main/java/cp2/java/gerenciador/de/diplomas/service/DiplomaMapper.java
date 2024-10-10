@@ -23,13 +23,8 @@ public class DiplomaMapper {
     public Diploma requestRecordToDiploma(DiplomaRequestDTO diplomaRequestDTO) {
         Diploma diploma = new Diploma();
 
-        Diplomado diplomado = diplomadoRepository.findById(diplomaRequestDTO.diplomado_id())
-                .orElseThrow(() -> new RuntimeException("Diplomado não encontrado."));
-        Curso curso = cursoRepository.findById(diplomaRequestDTO.curso_id())
-                .orElseThrow(() -> new RuntimeException("Curso não encontrado."));
-
-        diploma.setDiplomado_id(diplomado);
-        diploma.setCurso_id(curso);
+        diploma.setDiplomado_id(diplomaRequestDTO.diplomado_id());
+        diploma.setCurso_id(diplomaRequestDTO.curso_id());
         diploma.setData_diploma(diplomaRequestDTO.data_diploma());
         diploma.setSexo_reitor(Sexo.valueOf(diplomaRequestDTO.sexo_reitor().toUpperCase()));
         diploma.setNome_reitor(diplomaRequestDTO.nome_reitor());
