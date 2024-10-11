@@ -26,6 +26,8 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.Optional;
 import java.util.UUID;
 
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
+
 @RestController
 @RequestMapping("/diplomas")
 public class DiplomaController {
@@ -63,9 +65,9 @@ public class DiplomaController {
     }
 
 
-    @GetMapping("/{id}")
-    public ResponseEntity<String> getDiploma(@PathVariable UUID id) {
-        Optional<Diploma> diplomaSalvo = diplomaRepository.findById(id);
+    @GetMapping("/{diplomado_id}")
+    public ResponseEntity<String> getDiploma(@PathVariable UUID diplomado_id) {
+        Optional<Diploma> diplomaSalvo = diplomaRepository.findById(diplomado_id);
         if (diplomaSalvo.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
