@@ -10,8 +10,8 @@ public record DiplomadoRequestDTO(
         @NotBlank(message = "A nacionalidade é obrigatória!")
         String nacionalidade_diplomado,
         @NotBlank(message = "A naturalidade é obrigatória!")
-        LocalDate naturalidade_diplomado,
+        String naturalidade_diplomado,
         @NotBlank(message = "O rg do reitor é obrigatório!")
-        Long rg_diplomado
+        String rg_diplomado
 ) {
 }

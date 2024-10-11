@@ -14,28 +14,33 @@ import org.springframework.stereotype.Service;
 @Service
 public class DiplomaMapper {
 
-    @Autowired
-    private CursoRepository cursoRepository;
-
-    @Autowired
-    private DiplomadoRepository diplomadoRepository;
 
     public Diploma requestRecordToDiploma(DiplomaRequestDTO diplomaRequestDTO) {
         Diploma diploma = new Diploma();
 
-        diploma.setDiplomado_id(diplomaRequestDTO.diplomado_id());
-        diploma.setCurso_id(diplomaRequestDTO.curso_id());
+        diploma.setDiplomado(diplomaRequestDTO.diplomado_id());
+        diploma.setCurso(diplomaRequestDTO.curso_id());
         diploma.setData_diploma(diplomaRequestDTO.data_diploma());
-        diploma.setSexo_reitor(Sexo.valueOf(diplomaRequestDTO.sexo_reitor().toUpperCase()));
+        diploma.setSexo_reitor(diplomaRequestDTO.sexo_reitor());
         diploma.setNome_reitor(diplomaRequestDTO.nome_reitor());
         return diploma;
     }
 
-    public DiplomaResponseDTO diplomaToResponseDTO(Diploma diploma, Diplomado diplomado, Curso curso, Sexo sexo) {
+    public DiplomaResponseDTO diplomaToResponseDTO(Diploma diploma) {
+
+        Diplomado diplomado = diploma.getDiplomado();
+        Curso curso = diploma.getCurso();
+
+        // Gerando o título e cargo do reitor baseado no sexo
+        String tituloReitor = diploma.getSexo_reitor() == Sexo.FEMININO ? "Prof. Dr. " : "Profa. Dra. ";
+        tituloReitor += diploma.getNome_reitor();
+        String cargoReitor = diploma.getSexo_reitor() == Sexo.MASCULINO ? "reitor" : "reitora";
+
+
         return new DiplomaResponseDTO(
                 diploma.getId_diploma(),
-                diploma.getDiplomado_id(),
-                diploma.getCurso_id(),
+                diploma.getDiplomado(),
+                diploma.getCurso(),
                 diploma.getData_diploma(),
                 diploma.getSexo_reitor(),
                 diploma.getNome_reitor()

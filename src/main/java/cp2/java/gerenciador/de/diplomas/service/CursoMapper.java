@@ -17,7 +17,7 @@ public class CursoMapper {
         return curso;
     }
 
-    public CursoResponseDTO cursoToResponseDTO(Curso curso, TipoCurso tipoCurso) {
+    public CursoResponseDTO cursoToResponseDTO(Curso curso) {
         return new CursoResponseDTO(
                 curso.getId_curso(),
                 curso.getNome_curso(),

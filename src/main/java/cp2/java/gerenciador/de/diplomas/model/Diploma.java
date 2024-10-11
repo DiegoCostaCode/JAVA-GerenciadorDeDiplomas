@@ -1,6 +1,7 @@
 package cp2.java.gerenciador.de.diplomas.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 import java.util.UUID;
@@ -10,14 +11,14 @@ import java.util.UUID;
 public class Diploma {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id_diploma;
     @ManyToOne
     @JoinColumn(name = "diplomado_id")
-    private Diplomado diplomado_id;
+    private Diplomado diplomado;
     @ManyToOne
     @JoinColumn(name = "curso_id")
-    private Curso curso_id;
+    private Curso curso;
     @Column(name = "data_diploma")
     private LocalDate data_diploma;
     @Column(name = "sexo_reitor_diploma")
@@ -33,21 +34,22 @@ public class Diploma {
         this.id_diploma = id_diploma;
     }
 
-    public Diplomado getDiplomado_id() {
-        return diplomado_id;
+    public Diplomado getDiplomado() {
+        return diplomado;
     }
 
-    public void setDiplomado_id(Diplomado diplomado_id) {
-        this.diplomado_id = diplomado_id;
+    public void setDiplomado(Diplomado diplomado) {
+        this.diplomado = diplomado;
     }
 
-    public Curso getCurso_id() {
-        return curso_id;
+    public void setCurso(Curso curso) {
+        this.curso = curso;
     }
 
-    public void setCurso_id(Curso curso_id) {
-        this.curso_id = curso_id;
+    public Curso getCurso() {
+        return curso;
     }
+
 
     public LocalDate getData_diploma() {
         return data_diploma;

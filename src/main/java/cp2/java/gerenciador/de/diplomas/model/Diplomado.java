@@ -18,7 +18,7 @@ public class Diplomado {
     @Column(name = "naturalidade_diplomado")
     private String naturalidade_diplomado;
     @Column(name = "rg_diplomado")
-    private Long rg_diplomado;
+    private String rg_diplomado;
 
     public Long getId_diplomado() {
         return id_diplomado;
@@ -52,11 +52,11 @@ public class Diplomado {
         this.naturalidade_diplomado = naturalidade_diplomado;
     }
 
-    public Long getRg_diplomado() {
+    public String getRg_diplomado() {
         return rg_diplomado;
     }
 
-    public void setRg_diplomado(Long rg_diplomado) {
+    public void setRg_diplomado(String rg_diplomado) {
         this.rg_diplomado = rg_diplomado;
     }
 }
