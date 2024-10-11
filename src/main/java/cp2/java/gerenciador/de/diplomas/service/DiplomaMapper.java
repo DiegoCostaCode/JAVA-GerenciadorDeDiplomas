@@ -28,13 +28,13 @@ public class DiplomaMapper {
 
     public DiplomaResponseDTO diplomaToResponseDTO(Diploma diploma) {
 
-        Diplomado diplomado = diploma.getDiplomado();
-        Curso curso = diploma.getCurso();
-
-        // Gerando o título e cargo do reitor baseado no sexo
-        String tituloReitor = diploma.getSexo_reitor() == Sexo.FEMININO ? "Prof. Dr. " : "Profa. Dra. ";
-        tituloReitor += diploma.getNome_reitor();
-        String cargoReitor = diploma.getSexo_reitor() == Sexo.MASCULINO ? "reitor" : "reitora";
+//        Diplomado diplomado = diploma.getDiplomado();
+//        Curso curso = diploma.getCurso();
+//
+//        // Gerando o título e cargo do reitor baseado no sexo
+//        String tituloReitor = diploma.getSexo_reitor() == Sexo.FEMININO ? "Prof. Dr. " : "Profa. Dra. ";
+//        tituloReitor += diploma.getNome_reitor();
+//        String cargoReitor = diploma.getSexo_reitor() == Sexo.MASCULINO ? "reitor" : "reitora";
 
 
         return new DiplomaResponseDTO(

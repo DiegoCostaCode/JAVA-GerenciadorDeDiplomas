@@ -106,26 +106,29 @@ public class DiplomaController {
     })
     @PostMapping(value = "/criar/{diplomadoId}/{cursoId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<DiplomaResponseDTO> createDiploma(
-            @PathVariable Long diplomadoId,
-            @PathVariable Long cursoId,
             @Valid @RequestBody DiplomaRequestDTO diplomaRequest
     )
     {
-        Diplomado diplomado = diplomadoRepository.findById(diplomadoId)
+        Diplomado diplomado = diplomadoRepository.findById(diplomaRequest.diplomado_id().getId_diplomado())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Diplomado não encontrado"));
 
 
-        Curso curso = cursoRepository.findById(cursoId)
+        Curso curso = cursoRepository.findById(diplomaRequest.curso_id().getId_curso())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Curso não encontrado"));
 
 
-        Diploma diplomaSalvo = diplomaMapper.requestRecordToDiploma(diplomaRequest);
-        diplomaSalvo.setDiplomado(diplomado);
-        diplomaSalvo.setCurso(curso);
+        Diploma diploma = new Diploma();
+        diploma.setData_diploma(diplomaRequest.data_diploma());
+        diploma.setNome_reitor(diplomaRequest.nome_reitor());
+        diploma.setSexo_reitor(diplomaRequest.sexo_reitor());
+        diploma.setCurso(curso);
+        diploma.setDiplomado(diplomado);
 
-        Diploma diplomaCriado = diplomaRepository.save(diplomaSalvo);
+        Diploma diplomaCriado = diplomaRepository.save(diploma);
 
         DiplomaResponseDTO diplomaResponseDTO = diplomaMapper.diplomaToResponseDTO(diplomaCriado);
+
         return new ResponseEntity<>(diplomaResponseDTO, HttpStatus.CREATED);
     }
 }
+

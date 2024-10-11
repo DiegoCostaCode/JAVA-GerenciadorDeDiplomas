@@ -16,7 +16,7 @@ public class Diploma {
     @ManyToOne
     @JoinColumn(name = "diplomado_id")
     private Diplomado diplomado;
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = "curso_id")
     private Curso curso;
     @Column(name = "data_diploma")
@@ -42,14 +42,13 @@ public class Diploma {
         this.diplomado = diplomado;
     }
 
-    public void setCurso(Curso curso) {
-        this.curso = curso;
-    }
-
     public Curso getCurso() {
         return curso;
     }
 
+    public void setCurso(Curso curso) {
+        this.curso = curso;
+    }
 
     public LocalDate getData_diploma() {
         return data_diploma;
