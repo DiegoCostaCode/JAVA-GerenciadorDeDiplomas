@@ -29,10 +29,10 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody @Valid AuthDTO authDTO) {
-
+        // Gera um token do usuário e senha
         var usuarioSenha = new UsernamePasswordAuthenticationToken(authDTO.login(), authDTO.senha());
-
-        var auth = authenticationManager.authenticate(usuarioSenha);
+        // Autentica esse token
+        var auth = this.authenticationManager.authenticate(usuarioSenha);
         var token = tokenService.generateToken((Usuario) auth.getPrincipal());
         return ResponseEntity.ok(new LoginResponseDTO(token));
     }
@@ -43,7 +43,7 @@ public class AuthController {
             return ResponseEntity.badRequest().build();
         }
         String encryptedPassword = new BCryptPasswordEncoder().encode(registerDTO.senha());
-        Usuario novoUsurio = new Usuario(registerDTO.login(), encryptedPassword, registerDTO.tipoUsuario());
+        Usuario novoUsurio = new Usuario(registerDTO.login(), encryptedPassword, registerDTO.role());
         usuarioRepository.save(novoUsurio);
         return ResponseEntity.ok().build();
     }

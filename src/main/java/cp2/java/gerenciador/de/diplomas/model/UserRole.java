@@ -1,12 +1,12 @@
 package cp2.java.gerenciador.de.diplomas.model;
 
-public enum TipoUsuario {
+public enum UserRole {
     ADMIN("admin"),
     USER("user");
 
     private String role;
 
-    TipoUsuario(String role) { this.role = role; }
+    UserRole(String role) { this.role = role; }
 
     public String getRole() { return role; }
 }

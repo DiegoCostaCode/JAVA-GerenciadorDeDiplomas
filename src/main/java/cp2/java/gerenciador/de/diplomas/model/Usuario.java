@@ -12,61 +12,68 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity
-public class Usuario implements UserDetails{
+public class Usuario implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
     private String login;
     private String senha;
-    private TipoUsuario tipoUsuario;
+    private UserRole role;
 
-    public Usuario(){}
+    public Usuario() {}
 
-    public Usuario(String login, String senha, TipoUsuario tipoUsuario) {
+    public Usuario(String login, String senha, UserRole role) {
         this.login = login;
         this.senha = senha;
-        this.tipoUsuario = tipoUsuario;
+        this.role = role;
     }
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        if (TipoUsuario.ADMIN.equals(this.tipoUsuario)) {
-            return List.of(new SimpleGrantedAuthority("TIPO_ADMIN")
-                    , new SimpleGrantedAuthority("TIPO_USER"));
+        if (UserRole.ADMIN.equals(this.role)) {
+            return List.of(new SimpleGrantedAuthority("ROLE_ADMIN")
+                    , new SimpleGrantedAuthority("ROLE_USER"));
         } else {
-            return List.of(new SimpleGrantedAuthority("TIPO_USER"));
+            return List.of(new SimpleGrantedAuthority("ROLE_USER"));
         }
     }
 
     @Override
     public String getPassword() {
-        return "";
+        return this.senha;
     }
 
     @Override
     public String getUsername() {
-        return "";
+        return this.login;
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return UserDetails.super.isAccountNonExpired();
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return UserDetails.super.isAccountNonLocked();
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return UserDetails.super.isCredentialsNonExpired();
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return UserDetails.super.isEnabled();
+        return true;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getLogin() {
@@ -85,11 +92,12 @@ public class Usuario implements UserDetails{
         this.senha = senha;
     }
 
-    public TipoUsuario getTipoUsuario() {
-        return tipoUsuario;
+    public UserRole getRole() {
+        return role;
     }
 
-    public void setTipoUsuario(TipoUsuario tipoUsuario) {
-        this.tipoUsuario = tipoUsuario;
+    public void setRole(UserRole role) {
+        this.role = role;
     }
 }
+

@@ -1,5 +1,6 @@
 package cp2.java.gerenciador.de.diplomas.security;
 
+
 import cp2.java.gerenciador.de.diplomas.repository.UsuarioRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -44,6 +45,4 @@ public class SecurityFilter extends OncePerRequestFilter {
         }
         return authHeader.replace("Bearer ", "");
     }
-
-
 }
