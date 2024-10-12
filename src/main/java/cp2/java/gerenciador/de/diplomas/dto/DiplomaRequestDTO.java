@@ -13,8 +13,6 @@ public record DiplomaRequestDTO(
         Diplomado diplomado_id,
         @NotNull(message = "O curso é obrigatório!")
         Curso curso_id,
-        @NotNull(message = "A data é obrigatória!")
-        LocalDate data_diploma,
         @NotNull(message = "O sexo do reitor é obrigatório!")
         Sexo sexo_reitor,
         @NotBlank(message = "O nome do reitor é obrigatório!")

@@ -17,19 +17,21 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDate;
 import java.util.Optional;
 import java.util.UUID;
 
 import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 @RestController
-@RequestMapping("/diplomas")
+@RequestMapping("/diploma")
 public class DiplomaController {
 
     @Autowired
@@ -65,7 +67,7 @@ public class DiplomaController {
     }
 
 
-    @GetMapping("/{diplomado_id}")
+    @GetMapping("/buscar/{diplomado_id}")
     public ResponseEntity<String> getDiploma(@PathVariable UUID diplomado_id) {
         Optional<Diploma> diplomaSalvo = diplomaRepository.findById(diplomado_id);
         if (diplomaSalvo.isEmpty()) {
@@ -106,7 +108,7 @@ public class DiplomaController {
             @ApiResponse(responseCode = "201", description = "Diploma registrado com sucesso!"),
             @ApiResponse(responseCode = "400", description = "Atributos informados são inválidos", content =  @Content(schema = @Schema()))
     })
-    @PostMapping(value = "/criar/{diplomadoId}/{cursoId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/gerar", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<DiplomaResponseDTO> createDiploma(
             @Valid @RequestBody DiplomaRequestDTO diplomaRequest
     )
@@ -120,7 +122,7 @@ public class DiplomaController {
 
 
         Diploma diploma = new Diploma();
-        diploma.setData_diploma(diplomaRequest.data_diploma());
+        diploma.setData_diploma(LocalDate.now());
         diploma.setNome_reitor(diplomaRequest.nome_reitor());
         diploma.setSexo_reitor(diplomaRequest.sexo_reitor());
         diploma.setCurso(curso);

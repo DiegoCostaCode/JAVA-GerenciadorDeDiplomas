@@ -11,6 +11,8 @@ import cp2.java.gerenciador.de.diplomas.repository.DiplomadoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+
 @Service
 public class DiplomaMapper {
 
@@ -20,21 +22,13 @@ public class DiplomaMapper {
 
         diploma.setDiplomado(diplomaRequestDTO.diplomado_id());
         diploma.setCurso(diplomaRequestDTO.curso_id());
-        diploma.setData_diploma(diplomaRequestDTO.data_diploma());
+        diploma.setData_diploma(LocalDate.now());
         diploma.setSexo_reitor(diplomaRequestDTO.sexo_reitor());
         diploma.setNome_reitor(diplomaRequestDTO.nome_reitor());
         return diploma;
     }
 
     public DiplomaResponseDTO diplomaToResponseDTO(Diploma diploma) {
-
-//        Diplomado diplomado = diploma.getDiplomado();
-//        Curso curso = diploma.getCurso();
-//
-//        // Gerando o título e cargo do reitor baseado no sexo
-//        String tituloReitor = diploma.getSexo_reitor() == Sexo.FEMININO ? "Prof. Dr. " : "Profa. Dra. ";
-//        tituloReitor += diploma.getNome_reitor();
-//        String cargoReitor = diploma.getSexo_reitor() == Sexo.MASCULINO ? "reitor" : "reitora";
 
 
         return new DiplomaResponseDTO(

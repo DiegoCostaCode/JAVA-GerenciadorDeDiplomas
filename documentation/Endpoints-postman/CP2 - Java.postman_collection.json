@@ -1,0 +1,138 @@
+{
+	"info": {
+		"_postman_id": "0f89ce48-200d-4487-b1e7-5adb9b77bd45",
+		"name": "CP2 - Java",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "34573297"
+	},
+	"item": [
+		{
+			"name": "Security",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"login\":\"Diego\",\r\n    \"senha\":\"12345\",\r\n    \"role\":\"ADMIN\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/auth/register"
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/auth/login"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Curso",
+			"item": [
+				{
+					"name": "Registro-curso",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6IkRpZWdvIiwiZXhwIjoxNzI4Njk4MTQ1fQ.1B3ihFCvZfpCO2FratAFSh7Hp-96GUHxwcef399krpE"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome_curso\":\"Análise e Desenvolvimento de Sistemas\",\r\n    \"tipo_curso\":\"GRADUACAO\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/curso/criar"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Diplomado",
+			"item": [
+				{
+					"name": "Registro-diplomado",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": "http://localhost:8080/diplomado/cadastro"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Diploma",
+			"item": [
+				{
+					"name": "Printar-diploma",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6IkRpZWdvIiwiZXhwIjoxNzI4NzAwOTY1fQ.rhCfjYhmsERjyIblvCBjRacqT5PiMQwyPSzxcbe5NdM"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/diplomas/37ade924-7241-4870-93aa-62c2232166e2"
+					},
+					"response": []
+				},
+				{
+					"name": "Gerar-diploma",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6IkRpZWdvIiwiZXhwIjoxNzI4NzAwNzYwfQ.ibdiBh7HgFLRe9UeOdj2DR1dHDKBnwxN5IGqfDp4QxQ"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"diplomado_id\":{\r\n        \"id_diplomado\":1\r\n    },\r\n    \"curso_id\":{\r\n        \"id_curso\":1\r\n    },\r\n    \"sexo_reitor\":\"FEMININO\",\r\n    \"nome_reitor\":\"Caroline Silva Teixeira\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/diplomas/gerar"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

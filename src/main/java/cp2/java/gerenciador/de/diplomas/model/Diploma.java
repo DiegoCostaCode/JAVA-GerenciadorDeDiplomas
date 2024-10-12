@@ -55,7 +55,7 @@ public class Diploma {
     }
 
     public void setData_diploma(LocalDate data_diploma) {
-        this.data_diploma = data_diploma;
+        this.data_diploma = LocalDate.now();
     }
 
     public Sexo getSexo_reitor() {
