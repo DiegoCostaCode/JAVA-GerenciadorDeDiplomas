@@ -18,10 +18,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/curso")
@@ -33,11 +32,7 @@ public class CursoController {
     @Autowired(required = true)
     private CursoMapper cursoMapper;
 
-    @Operation(summary = "Registrar curso")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Curso registrado com sucesso!"),
-            @ApiResponse(responseCode = "400", description = "Atributos informados são inválidos", content =  @Content(schema = @Schema()))
-    })
+
     @PostMapping(value = "/criar", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<CursoResponseDTO> createCurso(@Valid @RequestBody CursoRequestDTO cursoRequest)
     {
@@ -47,4 +42,39 @@ public class CursoController {
         CursoResponseDTO cursoResponseDTO = cursoMapper.cursoToResponseDTO(cursoCriado);
         return new ResponseEntity<>(cursoResponseDTO, HttpStatus.CREATED);
     }
+
+
+    @GetMapping("/buscar")
+    public ResponseEntity<List<Curso>> readCursos() {
+        List<Curso> cursos = cursoRepository.findAll();
+        if (cursos.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(cursos, HttpStatus.OK);
+    }
+
+    @PutMapping("/atualizar/{curso_id}")
+    public ResponseEntity<Void> atualizarCurso(@PathVariable Long curso_id, @Valid @RequestBody CursoRequestDTO cursoRequest) {
+        Curso curso = cursoRepository.findById(curso_id).orElse(null);
+        if (curso == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        curso.setNome_curso(cursoRequest.nome_curso());
+        curso.setTipo_curso(cursoRequest.tipo_curso());
+        cursoRepository.save(curso);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @DeleteMapping("/deletar/{curso_id}")
+    public ResponseEntity<Void> deletarCurso(@PathVariable Long curso_id) {
+        Curso curso = cursoRepository.findById(curso_id).orElse(null);
+        if (curso == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        cursoRepository.delete(curso);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
+
 }

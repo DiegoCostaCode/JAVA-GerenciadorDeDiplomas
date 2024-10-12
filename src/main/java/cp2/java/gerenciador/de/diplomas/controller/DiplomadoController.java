@@ -23,6 +23,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -52,4 +53,43 @@ public class DiplomadoController {
         return new ResponseEntity<>(diplomadoResponseDTO, HttpStatus.CREATED);
     }
 
+    @GetMapping("/buscar")
+    public ResponseEntity<List<Diplomado>> readDiplomado() {
+        List<Diplomado> diplomados = diplomadoRepository.findAll();
+        if (diplomados.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(diplomados, HttpStatus.OK);
+    }
+
+    @GetMapping("/buscar/{id}")
+    public ResponseEntity<Diplomado> readDiplomadoById(@PathVariable Long id) {
+        Optional<Diplomado> diplomado = diplomadoRepository.findById(id);
+        if (diplomado.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(diplomado.get(), HttpStatus.OK);
+    }
+
+    @PutMapping("/atualizar-cadastro/{id}")
+    public ResponseEntity<Diplomado> updateDiplomado(@PathVariable Long id, @Valid @RequestBody DiplomadoRequestDTO diplomadoRequest) {
+        Optional<Diplomado> diplomado = diplomadoRepository.findById(id);
+        if (diplomado.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        Diplomado diplomadoSalvo = diplomadoMapper.requestRecordToDiplomado(diplomadoRequest);
+        diplomadoSalvo.setId_diplomado(id);
+        diplomadoRepository.save(diplomadoSalvo);
+        return new ResponseEntity<>(diplomadoSalvo, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/deletar/{id}")
+    public ResponseEntity<Void> deleteDiplomado(@PathVariable Long id) {
+        Optional<Diplomado> diplomado = diplomadoRepository.findById(id);
+        if (diplomado.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        diplomadoRepository.delete(diplomado.get());
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

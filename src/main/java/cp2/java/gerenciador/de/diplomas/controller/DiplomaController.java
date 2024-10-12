@@ -66,9 +66,10 @@ public class DiplomaController {
         );
     }
 
-
     @GetMapping("/buscar/{diplomado_id}")
     public ResponseEntity<String> getDiploma(@PathVariable UUID diplomado_id) {
+
+
         Optional<Diploma> diplomaSalvo = diplomaRepository.findById(diplomado_id);
         if (diplomaSalvo.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -103,11 +104,7 @@ public class DiplomaController {
     }
 
 
-    @Operation(summary = "Registrar diploma")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Diploma registrado com sucesso!"),
-            @ApiResponse(responseCode = "400", description = "Atributos informados são inválidos", content =  @Content(schema = @Schema()))
-    })
+
     @PostMapping(value = "/gerar", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<DiplomaResponseDTO> createDiploma(
             @Valid @RequestBody DiplomaRequestDTO diplomaRequest
@@ -133,6 +130,43 @@ public class DiplomaController {
         DiplomaResponseDTO diplomaResponseDTO = diplomaMapper.diplomaToResponseDTO(diplomaCriado);
 
         return new ResponseEntity<>(diplomaResponseDTO, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/atualizar/{diploma_id}")
+    public ResponseEntity<Diploma> updateDiploma(
+            @PathVariable UUID diploma_id,
+            @Valid @RequestBody DiplomaRequestDTO diplomaRequest
+    )
+    {
+        Diploma diploma = diplomaRepository.findById(diploma_id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Diploma não encontrado"));
+
+        Diplomado diplomado = diplomadoRepository.findById(diplomaRequest.diplomado_id().getId_diplomado())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Diplomado não encontrado"));
+
+        Curso curso = cursoRepository.findById(diplomaRequest.curso_id().getId_curso())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Curso não encontrado"));
+
+        diploma.setData_diploma(LocalDate.now());
+        diploma.setNome_reitor(diplomaRequest.nome_reitor());
+        diploma.setSexo_reitor(diplomaRequest.sexo_reitor());
+        diploma.setCurso(curso);
+        diploma.setDiplomado(diplomado);
+
+        diplomaRepository.save(diploma);
+
+        return new ResponseEntity<>(diploma, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/deletar/{diploma_id}")
+    public ResponseEntity<Void> deleteDiploma(@PathVariable UUID diploma_id)
+    {
+        Diploma diploma = diplomaRepository.findById(diploma_id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Diploma não encontrado"));
+
+        diplomaRepository.delete(diploma);
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
 

@@ -73,6 +73,41 @@
 						"url": "http://localhost:8080/curso/criar"
 					},
 					"response": []
+				},
+				{
+					"name": "buscar-cursos",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "atualizar-curso",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome_curso\":\"Análise e Desenvolvimento de Sistemas\",\r\n    \"tipo_curso\":\"POS_GRADUACAO\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/curso/atualizar/1"
+					},
+					"response": []
+				},
+				{
+					"name": "deletar-curso",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://localhost:8080/curso/deletar/"
+					},
+					"response": []
 				}
 			]
 		},
@@ -85,6 +120,41 @@
 						"method": "POST",
 						"header": [],
 						"url": "http://localhost:8080/diplomado/cadastro"
+					},
+					"response": []
+				},
+				{
+					"name": "get-diplomados",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/diplomado/buscar"
+					},
+					"response": []
+				},
+				{
+					"name": "get-por-id",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "atualizar-cadastro",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": "http://localhost:8080/diplomado/atualizar-cadastro/"
+					},
+					"response": []
+				},
+				{
+					"name": "deletar-por-id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://localhost:8080/diplomado/deletar"
 					},
 					"response": []
 				}
@@ -129,6 +199,39 @@
 							}
 						},
 						"url": "http://localhost:8080/diplomas/gerar"
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar-diploma",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"diplomado_id\":{\r\n        \"id_diplomado\":1\r\n    },\r\n    \"curso_id\":{\r\n        \"id_curso\":1\r\n    },\r\n    \"sexo_reitor\":\"MASCULINO\",\r\n    \"nome_reitor\":\"Samuell Costa Silva\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/diplomas/atualizar/"
+					},
+					"response": []
+				},
+				{
+					"name": "Deletar-diploma",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6IlRlc3RlIiwiZXhwIjoxNzI4NzYwMDY5fQ.7DBlsqZLXl2AL2MiqhJXGjz761TBd1A-TzkJH0eHSho"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": "http://localhost:8080/diploma/deletar/3e1bff65-25e9-4459-ace8-e2c063aff010"
 					},
 					"response": []
 				}

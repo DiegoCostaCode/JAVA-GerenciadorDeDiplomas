@@ -8,12 +8,6 @@
 ## Descrição
 Este projeto é um gerenciador de diplomas desenvolvido em Java utilizando o framework Spring Boot. Ele permite registrar, buscar, atualizar e deletar diplomados, seus diplomas e os cursos da Universidade Fake. :D
 
-## Tecnologias Utilizadas
-- **Java 21**
-- **Spring Boot**
-- **Gradle**
-- **Oracle JDK 11**
-
 ## Estrutura do Projeto
 - `src/main/java/cp2/java/gerenciador/de/diplomas/controller`: Contém os controladores da aplicação.
 - `src/main/java/cp2/java/gerenciador/de/diplomas/service`: Contém os serviços e mapeadores.
